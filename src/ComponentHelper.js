@@ -77,7 +77,24 @@ module.exports.findDirtyComponents = function(el, syncedComps, cachedData) {
     }
 
     var oldCompData = cachedData[compKey];
-    if (!deepEqual(oldCompData, newCompData)) {
+    if (compKey.endsWith("---position---") || compKey === "position"
+        || compKey.endsWith("---scale---") || compKey === "scale"){
+      const epsilon = 0.02;
+      if ((Math.abs(oldCompData.x - newCompData.x) > epsilon) ||
+          (Math.abs(oldCompData.y - newCompData.y) > epsilon) ||
+          (Math.abs(oldCompData.z - newCompData.z) > epsilon)){
+        dirtyComps.push(schema);
+      }
+    }
+    else if (compKey.endsWith("---rotation---") || compKey === "rotation"){
+      const epsilon = 4.00;
+      if ((Math.abs(oldCompData.x - newCompData.x) > epsilon) ||
+          (Math.abs(oldCompData.y - newCompData.y) > epsilon) ||
+          (Math.abs(oldCompData.z - newCompData.z) > epsilon)){
+        dirtyComps.push(schema);
+      }
+    }
+    else if (!deepEqual(oldCompData, newCompData)) {
       dirtyComps.push(schema);
     }
   }
