@@ -496,7 +496,7 @@ AFRAME.registerComponent('networked', {
 
   remove: function () {
     if (this.isMine() && NAF.connection.isConnected()) {
-      var syncData = { networkId: this.data.networkId };
+      var syncData = { template: this.data.template, networkId: this.data.networkId };
       if (NAF.entities.hasEntity(this.data.networkId)) {
         NAF.connection.broadcastDataGuaranteed('r', syncData);
       } else {
