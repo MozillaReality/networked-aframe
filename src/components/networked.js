@@ -259,12 +259,15 @@ AFRAME.registerComponent('networked', {
         buffer.update(dt);
         if (componentNames.includes('position')) {
           object3D.position.copy(buffer.getPosition());
+          object3D.matrixNeedsUpdate = true;
         }
         if (componentNames.includes('rotation')) {
           object3D.quaternion.copy(buffer.getQuaternion());
+          object3D.matrixNeedsUpdate = true;
         }
         if (componentNames.includes('scale')) {
           object3D.scale.copy(buffer.getScale());
+          object3D.matrixNeedsUpdate = true;
         }
       }
     }
