@@ -48,7 +48,7 @@ Follow [the NAF Getting Started tutorial](https://github.com/networked-aframe/ne
 To run the examples on your own PC:
 
  ```sh
-git clone https://github.com/networked-aframe/networked-aframe.git  # Clone the repository.
+git clone https://github.com/MozillaReality/networked-aframe.git  # Clone the repository.
 cd networked-aframe
 npm install  # Install dependencies.
 npm run dev  # Start the local development server.
@@ -67,7 +67,7 @@ Basic Example
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
     <script src="/easyrtc/easyrtc.js"></script>
-    <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+    <script src="/build.js"></script>
   </head>
   <body>
     <a-scene networked-scene>

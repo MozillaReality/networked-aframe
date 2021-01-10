@@ -108,8 +108,8 @@ Here's the template we'll start with:
   <head>
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
-    <script src="easyrtc/easyrtc.js"></script>
-    <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+    <script src="/easyrtc/easyrtc.js"></script>
+    <script src="/build.js"></script>
   </head>
   <body>
     <a-scene></a-scene>
