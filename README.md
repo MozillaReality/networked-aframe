@@ -10,9 +10,9 @@ Networked-Aframe
 
 **Multi-user VR on the Web**
 
-Write full-featured multi-user VR experiences entirely in HTML.
+A framework for writing multi-user VR apps in HTML and JS.
 
-Built on top of the wonderful [A-Frame](https://aframe.io/).
+Built on top of [A-Frame](https://aframe.io/).
 
 <div>
   <a href="#features">Features</a>
@@ -31,13 +31,11 @@ Built on top of the wonderful [A-Frame](https://aframe.io/).
 
 Features
 --------
-* Includes everything you need to create multi-user WebVR apps and games.
 * Support for WebRTC and/or WebSocket connections.
 * Voice chat. Audio streaming to let your users talk in-app (WebRTC only).
 * Bandwidth sensitive. Only send network updates when things change.
+* Cross-platform. Works on all modern Desktop and Mobile browsers. Oculus Rift, Oculus Quest, HTC Vive and Google Cardboard + Daydream support.
 * Extendable. Sync any A-Frame component, including your own, without changing the component code at all.
-* Cross-platform. Works on all modern Desktop and Mobile browsers. Oculus Rift, HTC Vive and Google Cardboard + Daydream support.
-* Firebase WebRTC signalling support
 
 
 Getting Started
@@ -52,7 +50,7 @@ To run the examples on your own PC:
  ```sh
 git clone https://github.com/networked-aframe/networked-aframe.git  # Clone the repository.
 cd networked-aframe
-npm install && npm run easyrtc-install  # Install dependencies.
+npm install  # Install dependencies.
 npm run dev  # Start the local development server.
 ```
 With the server running, browse the examples at `http://localhost:8080`. Open another browser tab and point it to the same URL to see the other client.
@@ -66,9 +64,9 @@ Basic Example
 <html>
   <head>
     <title>My Networked-Aframe Scene</title>
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
-    <script src="easyrtc/easyrtc.js"></script>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
+    <script src="/easyrtc/easyrtc.js"></script>
     <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   </head>
   <body>
@@ -220,6 +218,7 @@ Templates must only have one root element. When `attachTemplateToLocal` is set t
 | -------- | ------------ | --------------
 | template  | A css selector to a template tag stored in `<a-assets>` | ''
 | attachTemplateToLocal  | Does not attach the template for the local user when set to false. This is useful when there is different behavior locally and remotely. | true
+| persistent | On remote owner disconnect, attempts to take ownership of persistent entities rather than delete them | false
 
 
 ### Deleting Networked Entities
@@ -267,8 +266,8 @@ To sync nested templates setup your HTML nodes like so:
 ```HTML
 <a-entity id="player" networked="template:#player-template;attachTemplateToLocal:false;" wasd-controls>
   <a-entity camera look-controls networked="template:#head-template;attachTemplateToLocal:false;"></a-entity>
-  <a-entity hand-controls="left" networked="template:#left-hand-template"></a-entity>
-  <a-entity hand-controls="right" networked="template:#right-hand-template"></a-entity>
+  <a-entity hand-controls="hand:left" networked="template:#left-hand-template"></a-entity>
+  <a-entity hand-controls="hand:right" networked="template:#right-hand-template"></a-entity>
 </a-entity>
 ```
 
@@ -421,9 +420,11 @@ Help and More Information
 * [Getting started tutorial](https://github.com/networked-aframe/networked-aframe/blob/master/docs/getting-started-local.md)
 * [Edit live example on glitch.com](https://glitch.com/~networked-aframe)
 * [Live demo site](http://haydenlee.io/networked-aframe)
+* [Networked-Aframe Adapters](https://github.com/networked-aframe)
 * [A-Frame](https://aframe.io/)
-* [WebVR](https://webvr.info/)
-* [EasyRTC WebRTC library](http://www.easyrtc.com/)
+* [WebXR](https://immersiveweb.dev)
+* [Open EasyRTC WebRTC library](https://github.com/open-easyrtc/open-easyrtc)
+* [Hayden Lee, NAF Creator and Maintainer](https://twitter.com/haydenlee37)
 * Bugs and requests can be filed on [GitHub Issues](https://github.com/networked-aframe/networked-aframe/issues)
 
 
@@ -452,13 +453,6 @@ Roadmap
 * [Add your suggestions](https://github.com/networked-aframe/networked-aframe/issues)
 
 Interested in contributing? [Open an issue](https://github.com/networked-aframe/networked-aframe/issues) or send a pull request.
-
-
-Warning
---------
-
-NAF is not supported on nodejs version 7.2.0. Please use a different version of nodejs.
-
 
 
 License

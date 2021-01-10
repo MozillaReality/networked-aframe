@@ -1,8 +1,8 @@
 # Getting started with Networked-Aframe
 
-Hello friends! This tutorial will show you how to write your very first multi-user virtual reality experience on the web.
+This tutorial will show you how to write a multi-user virtual reality experience on the web.
 
-You might be thinking: wait you can do VR on the web? And the answer is yes! Using the [WebVR standard](https://webvr.info/) and an awesome library called [A-Frame](https://aframe.io), VR on the web is actually really easy and evolving rapidly. Your second question is then: wait to do multi-user won't I have to know all about servers and complicated networking protocols? Answer: not anymore! The recently released [Networked-Aframe](https://github.com/networked-aframe/networked-aframe) (NAF for short) has you covered. NAF hides away a lot of the networking complexity, allowing you to write multi-user VR apps entirely in HTML.
+You might be thinking: wait you can do VR on the web? And the answer is yes! Using the [WebXR standard](https://github.com/immersive-web/webxr) and an awesome library called [A-Frame](https://aframe.io), VR on the web is actually really easy and evolving rapidly. Your second question is then: wait to do multi-user won't I have to know all about servers and complicated networking protocols? Answer: not anymore! The recently released [Networked-Aframe](https://github.com/networked-aframe/networked-aframe) (NAF for short) has you covered. NAF hides the networking complexity, allowing you to write multi-user VR apps with the tools you're familiar with.
 
 This tutorial goes through how to setup a Networked-Aframe experience from scratch, however if you'd like to get started writing your app with no fuss, remix this project on Glitch and get right to it:
 
@@ -36,7 +36,7 @@ Now let's setup the required dependencies. Create a file called `package.json` a
   },
   "author": "YOUR_NAME",
   "dependencies": {
-    "networked-aframe": "^0.5.0"
+    "networked-aframe": "^0.7.0"
   }
 }
 ```
@@ -72,15 +72,13 @@ Let's run the default server and start playing with the examples. From your proj
 node ./server/easyrtc-server.js
 ```
 
-
-
 You'll notice the `package.json` has a shortcut to start the server that you can use by running:
 
 ```sh
 npm start
 ```
 
-Now that the server's running you can fire up your favorite web browser (as long as its the latest Chrome or Firefox) and enter this URL:
+Now that the server's running you can fire up a [web browser that supports WebXR](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API#Browser_compatibility) and enter this URL:
 
 ```
 http://localhost:8080
@@ -108,8 +106,8 @@ Here's the template we'll start with:
 ```html
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
     <script src="easyrtc/easyrtc.js"></script>
     <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   </head>
@@ -243,7 +241,7 @@ To spruce up your world add the following HTML tags:
 ```html
 <!-- Add to bottom of the a-assets tag -->
 <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
-<img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+<img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 
 <!-- Add to bottom of a-scene tag -->
 <a-entity position="0 0 0"
@@ -278,6 +276,17 @@ By default NAF uses WebSockets to send packets to other users. This follows a cl
 
 NAF has built in voice chat when you're using WebRTC. Change `adapter` and `audio` properties of the `networked-scene` component to `easyrtc` and `true` respectively and your users will be able to speak to each other. This is a little hard to test locally because the audio feedback will destroy your ears, so try it with headphones and you'll hear your voice being echoed back to you without the feedback. Note: in order for audio streaming to work on a hosted server you'll need to be using HTTPS. I'm planning on writing a follow-up tutorial to this one that will explain how to deploy NAF to a live server, including how to setup HTTPS really easily using [Certbot](https://certbot.eff.org/).
 
+**Using HTTPS locally**:
+
+To serve the site over HTTPS locally, you can install and run [ngrok](https://ngrok.com/).
+ngrok allows you to expose a web server running on your local machine to the internet. Just tell ngrok what port your web server is listening on.
+
+```bash
+ngrok http 8080
+```
+You can then visit the outputted `https://<x>.ngrok.io` domain.
+
+I'm planning on writing a follow-up tutorial to this one that will explain how to deploy NAF to a live server, including how to setup HTTPS really easily using [Certbot](https://certbot.eff.org/).
 
 ### Syncing Custom Components
 

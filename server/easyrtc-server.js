@@ -3,7 +3,7 @@ var http    = require("http");              // http server core module
 var express = require("express");           // web framework external module
 var serveStatic = require('serve-static');  // serve static files
 var socketIo = require("socket.io");        // web socket external module
-var easyrtc = require("easyrtc");               // EasyRTC external module
+var easyrtc = require("open-easyrtc");               // EasyRTC external module
 
 // Set process name
 process.title = "node-easyrtc";
@@ -20,19 +20,16 @@ var webServer = http.createServer(app);
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = socketIo.listen(webServer, {"log level":1});
-
 var myIceServers = [
-  {"url":"stun:stun.l.google.com:19302"},
-  {"url":"stun:stun1.l.google.com:19302"},
-  {"url":"stun:stun2.l.google.com:19302"},
-  {"url":"stun:stun3.l.google.com:19302"}
+  {"urls":"stun:stun1.l.google.com:19302"},
+  {"urls":"stun:stun2.l.google.com:19302"},
   // {
-  //   "url":"turn:[ADDRESS]:[PORT]",
+  //   "urls":"turn:[ADDRESS]:[PORT]",
   //   "username":"[USERNAME]",
   //   "credential":"[CREDENTIAL]"
   // },
   // {
-  //   "url":"turn:[ADDRESS]:[PORT][?transport=tcp]",
+  //   "urls":"turn:[ADDRESS]:[PORT][?transport=tcp]",
   //   "username":"[USERNAME]",
   //   "credential":"[CREDENTIAL]"
   // }
@@ -76,5 +73,5 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 
 //listen on port
 webServer.listen(port, function () {
-  console.log('listening on http://localhost:' + port);
+    console.log('listening on http://localhost:' + port);
 });
